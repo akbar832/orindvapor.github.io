@@ -16,7 +16,7 @@
         </div>
         <?php }?>
 
-        <?php 
+       <!-- <?php
 			$sql=" select * from barang where stok <= 3";
 			$row = $config -> prepare($sql);
 			$row -> execute();
@@ -29,7 +29,7 @@
 				</div>
 				";	
 			}
-		?>
+		?> -->
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
             <i class="fa fa-plus"></i> Insert Data</button>
@@ -49,7 +49,7 @@
                             <th>ID Barang</th>
                             <th>Kategori</th>
                             <th>Nama Barang</th>
-                            <th>Merk</th>
+                            <th>Jenis</th>
                             <th>Stok</th>
                             <th>Harga Beli</th>
                             <th>Harga Jual</th>
@@ -77,7 +77,7 @@
                             <td><?php echo $isi['id_barang'];?></td>
                             <td><?php echo $isi['nama_kategori'];?></td>
                             <td><?php echo $isi['nama_barang'];?></td>
-                            <td><?php echo $isi['merk'];?></td>
+                            <td><?php echo $isi['jenis'];?></td>
                             <td>
                                 <?php if($isi['stok'] == '0'){?>
                                 <button class="btn btn-danger"> Habis</button>
@@ -89,19 +89,8 @@
                             <td>Rp.<?php echo number_format($isi['harga_jual']);?>,-</td>
                             <td> <?php echo $isi['satuan_barang'];?></td>
                             <td>
-                                <?php if($isi['stok'] <=  '3'){?>
-                                <form method="POST" action="fungsi/edit/edit.php?stok=edit">
-                                    <input type="text" name="restok" class="form-control">
-                                    <input type="hidden" name="id" value="<?php echo $isi['id_barang'];?>"
-                                        class="form-control">
-                                    <button class="btn btn-primary btn-sm">
-                                        Restok
-                                    </button>
-                                    <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>"
-                                        onclick="javascript:return confirm('Hapus Data barang ?');">
-                                        <button class="btn btn-danger btn-sm">Hapus</button></a>
-                                </form>
-                                <?php }else{?>
+                             
+                                <?php {?>
                                 <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>"><button
                                         class="btn btn-primary btn-xs">Details</button></a>
 
@@ -173,9 +162,9 @@
                                             name="nama"></td>
                                 </tr>
                                 <tr>
-                                    <td>Merk Barang</td>
-                                    <td><input type="text" placeholder="Merk Barang" required class="form-control"
-                                            name="merk"></td>
+                                    <td>Jenis Barang</td>
+                                    <td><input type="text" placeholder="Jenis Barang" required class="form-control"
+                                            name="jenis"></td>
                                 </tr>
                                 <tr>
                                     <td>Harga Beli</td>

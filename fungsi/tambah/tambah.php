@@ -18,7 +18,7 @@ if (!empty($_SESSION['admin'])) {
         $id = htmlentities($_POST['id']);
         $kategori = htmlentities($_POST['kategori']);
         $nama = htmlentities($_POST['nama']);
-        $merk = htmlentities($_POST['merk']);
+        $merk = htmlentities($_POST['merk']);  // Changed 'jenis' to 'merk' to match the database schema
         $beli = htmlentities($_POST['beli']);
         $jual = htmlentities($_POST['jual']);
         $satuan = htmlentities($_POST['satuan']);
@@ -40,6 +40,7 @@ if (!empty($_SESSION['admin'])) {
         $row -> execute($data);
         echo '<script>window.location="../../index.php?page=barang&success=tambah-data"</script>';
     }
+    
     
     if (!empty($_GET['jual'])) {
         $id = $_GET['id'];

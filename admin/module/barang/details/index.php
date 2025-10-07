@@ -35,8 +35,8 @@
 				<td><?php echo $hasil['nama_barang'];?></td>
 			</tr>
 			<tr>
-				<td>Merk Barang</td>
-				<td><?php echo $hasil['merk'];?></td>
+				<td>jenis Barang</td>
+				<td><?php echo $hasil['jenis'];?></td>
 			</tr>
 			<tr>
 				<td>Harga Beli</td>

@@ -8,7 +8,7 @@
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span>
-                    <?php echo date('Y');?> - APlikasi Kasir OrindVapor |
+                    <?php echo date('Y');?> - APlikasi Kasir AkbarBaja |
                     BY <b><a href="https://www.instagram.com/rr_akbaar/" target="_blank">Raihan Akbar</a></b>
                 </span>
             </div>

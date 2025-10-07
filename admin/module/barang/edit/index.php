@@ -46,8 +46,8 @@
 					<td><input type="text" class="form-control" value="<?php echo $hasil['nama_barang'];?>" name="nama"></td>
 				</tr>
 				<tr>
-					<td>Merk Barang</td>
-					<td><input type="text" class="form-control" value="<?php echo $hasil['merk'];?>" name="merk"></td>
+					<td>jenis Barang</td>
+					<td><input type="text" class="form-control" value="<?php echo $hasil['jenis'];?>" name="jenis"></td>
 				</tr>
 				<tr>
 					<td>Harga Beli</td>
@@ -65,6 +65,7 @@
 							</option>
 							<option value="#">Pilih Satuan</option>
 							<option value="PCS">PCS</option>
+							<option value="BATANG">BATANG</option>
 						</select>
 					</td>
 				</tr>

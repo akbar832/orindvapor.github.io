@@ -54,7 +54,7 @@ if (!empty($_SESSION['admin'])) {
         $id = htmlentities($_POST['id']);
         $kategori = htmlentities($_POST['kategori']);
         $nama = htmlentities($_POST['nama']);
-        $merk = htmlentities($_POST['merk']);
+        $jenis = htmlentities($_POST['jenis']);
         $beli = htmlentities($_POST['beli']);
         $jual = htmlentities($_POST['jual']);
         $satuan = htmlentities($_POST['satuan']);
@@ -63,14 +63,14 @@ if (!empty($_SESSION['admin'])) {
 
         $data[] = $kategori;
         $data[] = $nama;
-        $data[] = $merk;
+        $data[] = $jenis;
         $data[] = $beli;
         $data[] = $jual;
         $data[] = $satuan;
         $data[] = $stok;
         $data[] = $tgl;
         $data[] = $id;
-        $sql = 'UPDATE barang SET id_kategori=?, nama_barang=?, merk=?, 
+        $sql = 'UPDATE barang SET id_kategori=?, nama_barang=?, jenis=?, 
 				harga_beli=?, harga_jual=?, satuan_barang=?, stok=?, tgl_update=?  WHERE id_barang=?';
         $row = $config -> prepare($sql);
         $row -> execute($data);
@@ -168,6 +168,59 @@ if (!empty($_SESSION['admin'])) {
         echo '<script>window.location="../../index.php?page=user&success=edit-data"</script>';
     }
 
+   if(isset($_GET['jual'])) {
+        if($_GET['jual'] == 'jual'){
+            // retrieve form data
+            $id = $_POST['id'];
+            $id_barang = $_POST['id_barang'];
+            $jumlah = $_POST['jumlah'];
+            $total = $_POST['total'];
+    
+            // Fetch the item details
+            $sql_tampil = "SELECT * FROM barang WHERE id_barang = ?";
+            $row_tampil = $config->prepare($sql_tampil);
+            $row_tampil->execute(array($id_barang));
+            $hasil = $row_tampil->fetch();
+    
+            // Check if stock is sufficient
+            if ($hasil['stok'] >= $jumlah) {
+                // Update the penjualan table
+                $sql = "UPDATE penjualan SET jumlah = ?, total = ? WHERE id_penjualan = ?";
+                $row = $config->prepare($sql);
+                $row->execute(array($jumlah, $total, $id));
+                
+                // Redirect with success message
+                echo '<script>window.location="../../index.php?page=jual&success"</script>';
+            } else {
+                echo '<script>alert("Keranjang Melebihi Stok Barang Anda!"); window.location="../../index.php?page=jual#keranjang"</script>';
+            }
+        }
+    }
+    
+
+    /*if(isset($_GET['jual'])) {
+        if($_GET['jual'] == 'jual'){
+            // retrieve form data
+            $id = $_POST['id'];
+            $id_barang = $_POST['id_barang'];
+            $jumlah = $_POST['jumlah'];
+            $total = $_POST['total'];
+
+            $sql_tampil = "select *from barang where barang.id_barang=?";
+            $row_tampil = $config -> prepare($sql_tampil);
+            $row_tampil -> execute(array($id_barang));
+            $hasil = $row_tampil -> fetch();
+    
+            // update the penjualan table
+            $sql = "UPDATE penjualan SET jumlah = ?, total = ? WHERE id_penjualan = ?";
+            $row = $config->prepare($sql);
+            $row->execute(array($jumlah, $total, $id));
+    
+            // redirect with success message
+            header("Location: ../../index.php?page=jual&success");
+        }*/
+    
+
     if (!empty($_GET['jual'])) {
         $id = htmlentities($_POST['id']);
         $id_barang = htmlentities($_POST['id_barang']);
@@ -200,7 +253,7 @@ if (!empty($_SESSION['admin'])) {
         } else {
             $sql = "select barang.*, kategori.id_kategori, kategori.nama_kategori
 					from barang inner join kategori on barang.id_kategori = kategori.id_kategori
-					where barang.id_barang like '%$cari%' or barang.nama_barang like '%$cari%' or barang.merk like '%$cari%'";
+					where barang.id_barang like '%$cari%' or barang.nama_barang like '%$cari%' or barang.jenis like '%$cari%'";
             $row = $config -> prepare($sql);
             $row -> execute();
             $hasil1= $row -> fetchAll();
@@ -209,7 +262,7 @@ if (!empty($_SESSION['admin'])) {
 			<tr>
 				<th>ID Barang</th>
 				<th>Nama Barang</th>
-				<th>Merk</th>
+				<th>jenis</th>
 				<th>Harga Jual</th>
 				<th>Aksi</th>
 			</tr>
@@ -217,7 +270,7 @@ if (!empty($_SESSION['admin'])) {
 			<tr>
 				<td><?php echo $hasil['id_barang'];?></td>
 				<td><?php echo $hasil['nama_barang'];?></td>
-				<td><?php echo $hasil['merk'];?></td>
+				<td><?php echo $hasil['jenis'];?></td>
 				<td><?php echo $hasil['harga_jual'];?></td>
 				<td>
 				<a href="fungsi/tambah/tambah.php?jual=jual&id=<?php echo $hasil['id_barang'];?>&id_kasir=<?php echo $_SESSION['admin']['id_member'];?>" 
